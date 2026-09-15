@@ -2,6 +2,7 @@
 from obd_reader import OBDReader
 from dtc_lookup import explain
 from diagnose import diagnose
+from logger import log_reading
 
 
 reader = OBDReader(simulate=True)  # flip to False once got hardware
@@ -20,3 +21,7 @@ data = reader.get_live_data()
 codes = reader.get_dtcs()
 for finding in diagnose(data, codes):
     print(f"- {finding}")    
+
+
+log_reading(data, codes)
+print(f"\nReading logged to {LOG_FILE}")    
